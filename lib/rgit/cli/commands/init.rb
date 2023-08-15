@@ -2,8 +2,12 @@ require "fileutils"
 
 module Rgit::Cli::Commands
   class Init
-    def run(root_dir)
-      git_dir = root_dir.join(".git")
+    def initialize(root_dir)
+      @root_dir = root_dir
+    end
+
+    def run(_args)
+      git_dir = @root_dir.join(".git")
       return -1 if git_dir.exist?
 
       FileUtils.mkdir git_dir

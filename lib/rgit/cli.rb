@@ -1,3 +1,5 @@
+require "pathname"
+
 module Rgit
   class Cli
     autoload :Commands, "rgit/cli/commands"
@@ -15,10 +17,11 @@ module Rgit
     end
 
     def start
+      pwd = Pathname.new Dir.pwd
       command, *rest = @args
 
       klass = @commands[command.downcase]
-      klass.new.run(rest)
+      klass.new(pwd).run(rest)
     end
   end
 end
