@@ -4,5 +4,6 @@ require_relative "rgit/version"
 
 module Rgit
   class Error < StandardError; end
-  # Your code goes here...
 end
+
+require_relative "rgit/blob"
