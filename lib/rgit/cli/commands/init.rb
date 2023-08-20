@@ -6,7 +6,7 @@ module Rgit::Cli::Commands
       @root_dir = root_dir
     end
 
-    def run(_args)
+    def run(_args = nil)
       git_dir = @root_dir.join(".git")
       return -1 if git_dir.exist?
 
