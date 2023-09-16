@@ -1,27 +1,25 @@
 require "pathname"
 
-module Rgit
-  class Cli
-    autoload :Commands, "rgit/cli/commands"
+class Rgit::Cli
+  autoload :Commands, "rgit/cli/commands"
 
-    def self.start
-      new(ARGV).start
-    end
+  def self.start
+    new(ARGV).start
+  end
 
-    def initialize(args)
-      @args = args
+  def initialize(args)
+    @repo = Rgit::Repo.new(Pathname.pwd)
+    @args = args
 
-      @commands = {
-        "init" => Commands::Init
-      }
-    end
+    @commands = {
+      "init" => Commands::Init
+    }
+  end
 
-    def start
-      pwd = Pathname.new Dir.pwd
-      command, *rest = @args
+  def start
+    command, *rest = @args
 
-      klass = @commands[command.downcase]
-      klass.new(pwd).run(rest)
-    end
+    klass = @commands[command.downcase]
+    klass.new(@repo).run(rest)
   end
 end

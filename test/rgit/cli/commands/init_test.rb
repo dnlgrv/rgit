@@ -11,7 +11,8 @@ class Rgit::Cli::Commands::InitTest < Minitest::Test
     FileUtils.mkdir_p @root
     FileUtils.cd @root
 
-    @command = Rgit::Cli::Commands::Init.new(@root)
+    @repo = Rgit::Repo.new(@root)
+    @command = Rgit::Cli::Commands::Init.new(@repo)
   end
 
   def teardown
