@@ -12,7 +12,8 @@ class Rgit::Cli
     @args = args
 
     @commands = {
-      "init" => Commands::Init
+      "init" => Commands::Init,
+      "commit" => Commands::Commit
     }
   end
 
