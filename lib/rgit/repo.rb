@@ -1,7 +1,7 @@
 require "rgit/database"
 
 class Rgit::Repo
-  attr_reader :dir
+  attr_reader :database, :dir
 
   def initialize(dir)
     @dir = dir
