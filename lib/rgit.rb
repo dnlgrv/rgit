@@ -9,3 +9,4 @@ end
 require_relative "rgit/blob"
 require_relative "rgit/database"
 require_relative "rgit/repo"
+require_relative "rgit/workspace"

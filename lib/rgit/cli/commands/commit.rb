@@ -13,9 +13,7 @@ module Rgit::Cli::Commands
     private
 
     def files
-      @repo.dir.entries.map do |file|
-        @repo.dir.join(file)
-      end.reject(&:directory?)
+      @repo.workspace.files
     end
 
     def blobs
