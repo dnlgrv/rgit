@@ -4,34 +4,24 @@ require "rgit/cli"
 require "fileutils"
 require "securerandom"
 
-class Rgit::Cli::Commands::InitTest < Minitest::Test
+class Rgit::Cli::Commands::InitTest < Rgit::Test
   def setup
-    @original_dir = FileUtils.pwd
-    @root = Pathname.new(Dir.pwd).join("test", "repos", SecureRandom.hex)
-    FileUtils.mkdir_p @root
-    FileUtils.cd @root
-
-    @repo = Rgit::Repo.new(@root)
-    @command = Rgit::Cli::Commands::Init.new(@repo)
+    setup_test_repo
   end
 
   def teardown
-    FileUtils.rm_rf @root
-    FileUtils.cd @original_dir
+    teardown_test_repo
   end
 
   def test_run_creates_directory_structure
-    @command.run
+    assert @repo.dir.join(".git", "HEAD").exist?
+    assert @repo.dir.join(".git", "objects").exist?
+    assert @repo.dir.join(".git", "refs").exist?
 
-    assert @root.join(".git", "HEAD").exist?
-    assert @root.join(".git", "objects").exist?
-    assert @root.join(".git", "refs").exist?
-
-    assert_equal "ref: refs/heads/main", @root.join(".git", "HEAD").read
+    assert_equal "ref: refs/heads/main", @repo.dir.join(".git", "HEAD").read
   end
 
   def test_running_with_existing_git_dir
-    @command.run
-    assert_equal(-1, @command.run)
+    assert_equal(-1, @init.run)
   end
 end
