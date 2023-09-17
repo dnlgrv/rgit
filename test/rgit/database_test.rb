@@ -19,7 +19,7 @@ class Rgit::DatabaseTest < Rgit::Test
     assert File.exist? expected_file_path
 
     decompressed_contents = Zlib::Inflate.inflate expected_file_path.read
-    decompressed_blob = Rgit::Blob.deserialize(decompressed_contents.bytes)
+    decompressed_blob = Rgit::Blob.new(decompressed_contents.split("\0").last)
 
     assert_equal @blob, decompressed_blob
   end
